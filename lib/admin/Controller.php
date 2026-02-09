@@ -206,7 +206,7 @@ HTML;
                                     <img src="{$logoUrl}" class="preview-img h-full object-contain {$logoHide}">
                                 </div>
                                 <div class="flex gap-2">
-                                    <input type="text" name="site_logo" value="{$logo}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                    <input type="text" name="site_logo" value="{$logo}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" readonly>
                                     <button class="media-select-btn raje-btn">انتخاب</button>
                                 </div>
                             </div>
@@ -219,7 +219,7 @@ HTML;
                                     <img src="{$darkUrl}" class="preview-img h-full object-contain {$darkHide}">
                                 </div>
                                 <div class="flex gap-2">
-                                    <input type="text" name="dark_mode_logo" value="{$dark}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                    <input type="text" name="dark_mode_logo" value="{$dark}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" readonly>
                                     <button class="media-select-btn raje-btn">انتخاب</button>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@ HTML;
                                                 <span class="text-zinc-400 text-xs {$loginDefaultTextHide}">پیش‌فرض قالب</span>
                                             </div>
                                             <div class="flex gap-2">
-                                                <input type="text" name="login_side_image" value="{$loginSideImage}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                                <input type="text" name="login_side_image" value="{$loginSideImage}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" readonly>
                                                 <button class="media-select-btn raje-btn">انتخاب</button>
                                             </div>
                                         </div>
@@ -310,7 +310,7 @@ HTML;
                                                 <span class="text-zinc-400 text-xs {$registerDefaultTextHide}">پیش‌فرض قالب</span>
                                             </div>
                                             <div class="flex gap-2">
-                                                <input type="text" name="register_side_image" value="{$registerSideImage}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                                <input type="text" name="register_side_image" value="{$registerSideImage}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" readonly>
                                                 <button class="media-select-btn raje-btn">انتخاب</button>
                                             </div>
                                         </div>
