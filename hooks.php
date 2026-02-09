@@ -6,7 +6,6 @@ if (!defined("WHMCS")) {
 use WHMCS\Database\Capsule;
 
 /* * API Function - Kept for future use
- */
 function raje_check_license($username, $order_id)
 {
     $api_key = 'rtl90ba8612b2a7dee456358b95f32fb6'; 
@@ -32,7 +31,9 @@ function raje_check_license($username, $order_id)
 
     return $result;
 }
+*/
 
+/*
 add_hook('ClientAreaPage', 1, function($vars) {
 
     if ($vars['templatefile'] !== 'homepage') {
@@ -104,12 +105,17 @@ add_hook('ClientAreaPage', 1, function($vars) {
         ");
     }
 });
+*/
 
 add_hook('ClientAreaPage', 1, function($vars) {
     
     // ---------------------------------------------------------
     // TEMPLATE VARIABLES (Logos & Width)
     // ---------------------------------------------------------
+    
+    // Retrieve settings (Fetching again because previous fetch was in commented block)
+    $settings = Capsule::table('rj_config')->pluck('value', 'setting')->all();
+
     // Helper to ensure full URL is returned to the template
     $getUrl = function($path) use ($vars) {
         if (empty($path)) return '';
@@ -140,5 +146,5 @@ add_hook('ClientAreaPage', 1, function($vars) {
     // Announcements Setting
     $return['raje_show_announcements'] = isset($settings['show_announcements']) ? $settings['show_announcements'] : '1';
 
-    return $return;
+    return $return ?? [];
 });
