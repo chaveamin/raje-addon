@@ -154,6 +154,8 @@ HTML;
         $topbar = ($settings['show_topbar'] ?? '1') == '1' ? 'checked' : '';
         $announce = ($settings['show_announcements'] ?? '1') == '1' ? 'checked' : '';
         $gravatar = ($settings['show_gravatar'] ?? '1') == '1' ? 'checked' : '';
+        $loginLayout = $settings['login_layout'] ?? 'col';
+        $registerLayout = $settings['register_layout'] ?? 'col';
         
         $logoUrl = $this->getImgUrl($logo);
         $darkUrl = $this->getImgUrl($dark);
@@ -161,10 +163,15 @@ HTML;
         $darkHide = empty($darkUrl) ? 'hidden' : '';
         $assets_url = '../modules/addons/raje/assets';
 
+        $isLoginCol = ($loginLayout === 'col') ? 'checked' : '';
+        $isLoginFull = ($loginLayout === 'full') ? 'checked' : '';
+        $isRegCol = ($registerLayout === 'col') ? 'checked' : '';
+        $isRegFull = ($registerLayout === 'full') ? 'checked' : '';
+
         // Render Content
         $content = <<<HTML
             <link rel="stylesheet" href="{$assets_url}/css/raje.cp.out.css">
-            <form method="post" action="">
+            <form class="relative" method="post" action="">
                 <input type="hidden" name="sub_action" value="save_general">
                 {$saveMessage}
                 
@@ -222,12 +229,51 @@ HTML;
                             <input id="show_gravatar" name="show_gravatar" type="checkbox" value="1" {$gravatar}>
                             <label for="show_gravatar" class="font-bold text-zinc-700">نمایش تصویر پروفایل (Gravatar)</label>
                         </div>
+                        <div class="flex items-center gap-8 mt-6">
+                            <div>
+                                <label class="block text-sm font-bold text-zinc-700 mb-4">طرح صفحه ورود</label>
+                                <div class="flex gap-4">
+                                    <label class="cursor-pointer group flex-1">
+                                        <input type="radio" name="login_layout" value="col" class="hidden peer" {$isLoginCol}>
+                                        <div class="p-4 bg-zinc-100 peer-checked:ring-2 peer-checked:ring-zinc-800 rounded-3xl overflow-hidden relative transition-all">
+                                            <img src="{$assets_url}/img/login-style-1.webp" class="w-lg object-cover rounded-3xl">
+                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">دو ستونه (پیشفرض)</div>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer group flex-1">
+                                        <input type="radio" name="login_layout" value="full" class="hidden peer" {$isLoginFull}>
+                                        <div class="p-4 bg-zinc-100 peer-checked:ring-2 peer-checked:ring-zinc-800 rounded-3xl overflow-hidden relative transition-all">
+                                            <img src="{$assets_url}/img/login-style-2.webp" class="w-lg object-cover rounded-3xl">
+                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">تمام صفحه</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-zinc-700 mb-4">طرح صفحه ثبت‌ نام</label>
+                                <div class="flex gap-4">
+                                    <label class="cursor-pointer group flex-1">
+                                        <input type="radio" name="register_layout" value="col" class="hidden peer" {$isRegCol}>
+                                        <div class="p-4 bg-zinc-100 peer-checked:ring-2 peer-checked:ring-zinc-800 rounded-3xl overflow-hidden relative transition-all">
+                                            <img src="{$assets_url}/img/register-style-1.webp" class="w-lg object-cover rounded-3xl">
+                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">دو ستونه (پیشفرض)</div>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer group flex-1">
+                                        <input type="radio" name="register_layout" value="full" class="hidden peer" {$isRegFull}>
+                                        <div class="p-4 bg-zinc-100 peer-checked:ring-2 peer-checked:ring-zinc-800 rounded-3xl overflow-hidden relative transition-all">
+                                            <img src="{$assets_url}/img/register-style-2.webp" class="w-lg object-cover rounded-3xl">
+                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">تمام صفحه</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <button type="submit" class="raje-btn">
-                 ذخیره تغییرات
-                </button>
+                <div class="sticky bottom-6 right-0 w-11/12 mx-auto rounded-3xl p-6 bg-white/90 backdrop-blur-sm">
+                    <button type="submit" class="raje-btn w-72 h-22">ذخیره تغییرات</button>
+                </div>
             </form>
 HTML;
 
@@ -430,6 +476,13 @@ HTML;
 
         $show_gravatar = isset($_POST['show_gravatar']) ? '1' : '0';
         Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_gravatar'], ['value' => $show_gravatar]);
+
+        if (isset($_POST['login_layout'])) {
+            Capsule::table('rj_config')->updateOrInsert(['setting' => 'login_layout'], ['value' => $_POST['login_layout']]);
+        }
+        if (isset($_POST['register_layout'])) {
+            Capsule::table('rj_config')->updateOrInsert(['setting' => 'register_layout'], ['value' => $_POST['register_layout']]);
+        }
 
         return '<div class="mb-4 p-4 rounded-md bg-green-50 border border-green-200 text-green-700 text-center font-bold">تنظیمات عمومی ذخیره شد.</div>';
     }

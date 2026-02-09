@@ -125,29 +125,23 @@ add_hook('ClientAreaPage', 1, function($vars) {
         return $vars['systemurl'] . $path;
     };
 
-    // Site Logo
     if (!empty($settings['site_logo'])) {
         $return['raje_site_logo'] = $getUrl($settings['site_logo']);
     }
     
-    // Dark Mode Logo
     if (!empty($settings['dark_mode_logo'])) {
         $return['raje_dark_logo'] = $getUrl($settings['dark_mode_logo']);
     }
 
-    // Logo Width
     if (!empty($settings['logo_width'])) {
         $return['raje_logo_width'] = $settings['logo_width'];
     }
 
-    // Topbar Setting
     $return['raje_show_topbar'] = isset($settings['show_topbar']) ? $settings['show_topbar'] : '1';
-
-    // Announcements Setting
     $return['raje_show_announcements'] = isset($settings['show_announcements']) ? $settings['show_announcements'] : '1';
-
-    // Gravatar Setting
     $return['raje_show_gravatar'] = isset($settings['show_gravatar']) ? $settings['show_gravatar'] : '1';
+    $return['raje_login_layout'] = isset($settings['login_layout']) ? $settings['login_layout'] : 'col';
+    $return['raje_register_layout'] = isset($settings['register_layout']) ? $settings['register_layout'] : 'col';
 
     return $return ?? [];
 });
