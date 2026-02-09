@@ -68,7 +68,7 @@ class Controller {
 HTML;
     }
 
-    /**
+/**
      * License Page Action
      */
     public function license($vars)
@@ -87,13 +87,26 @@ HTML;
         $status_val = $settings['license_status'] ?? '0';
         $assets_url = '../modules/addons/raje/assets';
 
-        // Alert Logic
+        // لیست پیام‌های خطا
+        $error_messages = [
+            '-1' => 'API اشتباه است.',
+            '-2' => 'نام کاربری اشتباه است.',
+            '-3' => 'کد سفارش اشتباه است.',
+            '-4' => 'کد سفارش قبلاً ثبت شده است.',
+            '-5' => 'کد سفارش مربوطه به این نام کاربری نمی‌باشد.',
+            '-6' => 'اطلاعات وارد شده در فرمت صحیح نمی‌باشند.',
+            '-7' => 'کد سفارش مربوط به این محصول نیست.',
+            '-8' => 'کد سفارش مربوطه به این نام کاربری نمی‌باشد.',
+        ];
+
         if ($status_val == '1') {
             $status_alert = '<div class="p-4 rounded-2xl bg-lime-400/20 text-lime-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-check-circle text-xl"></i></div><div><div class="font-bold text-green-800 text-lg">لایسنس فعال است (Active)</div><div class="text-sm text-green-600 mt-1">قالب شما با موفقیت فعال شده و آماده استفاده است.</div></div></div>';
         } elseif ($status_val == '0') {
             $status_alert = '<div class="p-4 rounded-2xl bg-yellow-400/20 text-yellow-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-exclamation-circle text-xl"></i></div><div><div class="font-bold text-yellow-800 text-lg">لایسنس بررسی نشده (Not Checked)</div><div class="text-sm text-yellow-600 mt-1">لطفا نام کاربری و شماره سفارش را وارد کرده و دکمه "بررسی و فعال‌سازی" را بزنید.</div></div></div>';
         } else {
-            $status_alert = '<div class="p-4 rounded-2xl bg-red-500/15 text-red-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-times-circle text-xl"></i></div><div><div class="font-bold text-red-800 text-lg">خطای فعال‌سازی</div><div class="text-sm text-red-600 mt-1">کد خطا: '.$status_val.'</div></div></div>';
+            $error_desc = isset($error_messages[$status_val]) ? $error_messages[$status_val] : 'خطای ناشناخته رخ داده است.';
+            
+            $status_alert = '<div class="p-4 rounded-2xl bg-red-500/15 text-red-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-times-circle text-xl"></i></div><div><div class="font-bold text-red-800 text-lg">خطای فعال‌سازی</div><div class="text-sm text-red-600 mt-1">کد خطا: '.$status_val.'<br><span class="font-bold">'.$error_desc.'</span></div></div></div>';
         }
 
         // Render Content
