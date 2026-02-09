@@ -75,7 +75,7 @@ HTML;
     {
         $saveMessage = '';
         // Handle POST save
-        if (isset($_POST['action']) && $_POST['action'] == 'save_license') {
+        if (isset($_POST['sub_action']) && $_POST['sub_action'] == 'save_license') {
             $saveMessage = $this->saveLicense();
         }
 
@@ -89,18 +89,18 @@ HTML;
 
         // Alert Logic
         if ($status_val == '1') {
-            $status_alert = '<div class="p-4 rounded-lg bg-green-50 border border-green-200 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="fas fa-check-circle text-xl"></i></div><div><div class="font-bold text-green-800 text-lg">لایسنس فعال است (Active)</div><div class="text-sm text-green-600 mt-1">قالب شما با موفقیت فعال شده و آماده استفاده است.</div></div></div>';
+            $status_alert = '<div class="p-4 rounded-2xl bg-lime-400/20 text-lime-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-check-circle text-xl"></i></div><div><div class="font-bold text-green-800 text-lg">لایسنس فعال است (Active)</div><div class="text-sm text-green-600 mt-1">قالب شما با موفقیت فعال شده و آماده استفاده است.</div></div></div>';
         } elseif ($status_val == '0') {
-            $status_alert = '<div class="p-4 rounded-lg bg-yellow-50 border border-yellow-200 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center shrink-0"><i class="fas fa-exclamation-circle text-xl"></i></div><div><div class="font-bold text-yellow-800 text-lg">لایسنس بررسی نشده (Not Checked)</div><div class="text-sm text-yellow-600 mt-1">لطفا نام کاربری و شماره سفارش را وارد کرده و دکمه "بررسی و فعال‌سازی" را بزنید.</div></div></div>';
+            $status_alert = '<div class="p-4 rounded-2xl bg-yellow-400/20 text-yellow-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-exclamation-circle text-xl"></i></div><div><div class="font-bold text-yellow-800 text-lg">لایسنس بررسی نشده (Not Checked)</div><div class="text-sm text-yellow-600 mt-1">لطفا نام کاربری و شماره سفارش را وارد کرده و دکمه "بررسی و فعال‌سازی" را بزنید.</div></div></div>';
         } else {
-            $status_alert = '<div class="p-4 rounded-lg bg-red-50 border border-red-200 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0"><i class="fas fa-times-circle text-xl"></i></div><div><div class="font-bold text-red-800 text-lg">خطای فعال‌سازی</div><div class="text-sm text-red-600 mt-1">کد خطا: '.$status_val.'</div></div></div>';
+            $status_alert = '<div class="p-4 rounded-2xl bg-red-500/15 text-red-700 flex items-start gap-4 transition-all"><div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-times-circle text-xl"></i></div><div><div class="font-bold text-red-800 text-lg">خطای فعال‌سازی</div><div class="text-sm text-red-600 mt-1">کد خطا: '.$status_val.'</div></div></div>';
         }
 
         // Render Content
         $content = <<<HTML
             <link rel="stylesheet" href="{$assets_url}/css/raje.cp.out.css">
             <form method="post" action="">
-                <input type="hidden" name="action" value="save_license">
+                <input type="hidden" name="sub_action" value="save_license">
                 {$saveMessage}
                     <div class="flex flex-col items-start gap-y-8 w-full *:w-full">
                         <div>
@@ -129,7 +129,7 @@ HTML;
     {
         $saveMessage = '';
         // Handle POST save
-        if (isset($_POST['action']) && $_POST['action'] == 'save_general') {
+        if (isset($_POST['sub_action']) && $_POST['sub_action'] == 'save_general') {
             $saveMessage = $this->saveGeneral();
         }
 
@@ -152,7 +152,7 @@ HTML;
         $content = <<<HTML
             <link rel="stylesheet" href="{$assets_url}/css/raje.cp.out.css">
             <form method="post" action="">
-                <input type="hidden" name="action" value="save_general">
+                <input type="hidden" name="sub_action" value="save_general">
                 {$saveMessage}
                 
                 <div class="bg-white rounded-xl shadow-sm border border-zinc-200 mb-6 overflow-hidden">
