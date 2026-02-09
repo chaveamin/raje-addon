@@ -207,7 +207,7 @@ HTML;
 
                 <div class="bg-white rounded-2xl border border-zinc-200 mb-6 overflow-hidden">
                      <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-black/5">
-                        <h3 class="font-bold text-zinc-700 mb-0">تنظیمات عمومی</h3>
+                        <h3 class="font-bold text-zinc-700 mb-0">عمومی</h3>
                     </div>
                     <div class="p-6 divide-y divide-zinc-950/5 *:pt-4 *:first:pt-0 *:pb-4 *:last:pb-0">
                         <div class="flex items-center gap-4">
