@@ -9,34 +9,104 @@ use WHMCS\Database\Capsule;
  */
 function raje_check_license($username, $order_id)
 {
-    // Logic temporarily disabled
-    return '1';
+    $api_key = 'rtl90ba8612b2a7dee456358b95f32fb6'; 
+    $product_id = 'New Product'; 
+    $domain = $_SERVER['SERVER_NAME']; 
+
+    $postData = [
+        'api' => $api_key,
+        'username' => $username,
+        'order_id' => $order_id,
+        'domain' => $domain,
+        'pid' => $product_id
+    ];
+
+    $url = 'https://www.rtl-theme.com/oauth/';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
 }
 
 add_hook('ClientAreaPage', 1, function($vars) {
 
-    // 1. Fetch Settings
-    try {
-        $settings = Capsule::table('rj_config')->pluck('value', 'setting')->all();
-    } catch (\Exception $e) {
+    if ($vars['templatefile'] !== 'homepage') {
         return;
     }
 
-    // ---------------------------------------------------------
-    // LICENSE CHECK (DISABLED)
-    // ---------------------------------------------------------
-    // We force the status to '1' so the site always loads.
-    // To re-enable later, you can uncomment the API logic here.
-    $currentStatus = '1'; 
-
-    // If you want to simulate a check in the future, put the logic here.
-    // For now, we simply skip the 'die()' command.
+    $settings = Capsule::table('rj_config')->pluck('value', 'setting')->all();
     
-    if ($currentStatus !== '1') {
-        // Error handling code is disabled
-        return;
+    $username   = $settings['rtl_username'] ?? '';
+    $order_id   = $settings['rtl_order_id'] ?? '';
+    $last_status = $settings['license_status'] ?? '0';
+    $last_check  = (int)($settings['last_check'] ?? 0);
+
+    $currentTime = time();
+    $cacheTimeout = 86400;
+
+    if (($currentTime - $last_check) > $cacheTimeout || $last_status !== '1') {
+        
+        if (empty($username) || empty($order_id)) {
+            $newResult = '-6';
+        } else {
+
+            $newResult = raje_check_license($username, $order_id);
+        }
+
+        // Update the Cache in DB
+        Capsule::table('rj_config')->where('setting', 'license_status')->update(['value' => $newResult]);
+        Capsule::table('rj_config')->where('setting', 'last_check')->update(['value' => $currentTime]);
+        
+        $currentStatus = $newResult;
+    } else {
+        
+        $currentStatus = $last_status;
     }
 
+    if ($currentStatus !== '1') {
+        $errors = [
+            '-1' => 'API اشتباه است.',
+            '-2' => 'نام کاربری اشتباه است.',
+            '-3' => 'کد سفارش اشتباه است.',
+            '-4' => 'کد سفارش قبلاً ثبت شده است.',
+            '-5' => 'کد سفارش مربوطه به این نام کاربری نمیباشد.',
+            '-6' => 'اطلاعات وارد شده در فرمت صحیح نمیباشند.',
+            '-7' => 'کد سفارش مربوط به این محصول نیست.',
+            '-8' => 'کد سفارش مربوطه به این نام کاربری نمیباشد.',
+            'default' => 'خطای غیرمنتظره رخ داده است (خطا: ' . $currentStatus . ')'
+        ];
+        
+        $displayError = $errors[$currentStatus] ?? $errors['default'];
+        
+        header('Content-Type: text/html; charset=utf-8');
+        die("
+        <!DOCTYPE html>
+        <html dir='rtl' lang='fa'>
+        <head>
+            <title>خطای لایسنس</title>
+            <link rel='stylesheet' href='modules/addons/raje/assets/style.css'>
+        </head>
+        <body>
+        {$debug}
+            <div class='lic-card-wrapper'>
+                <div class='lic-card'>
+                    <h2 class='title'>خطا لایسنس</h2>
+                    <p class='error'>{$displayError}</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        ");
+    }
+});
+
+add_hook('ClientAreaPage', 1, function($vars) {
+    
     // ---------------------------------------------------------
     // TEMPLATE VARIABLES (Logos & Width)
     // ---------------------------------------------------------
@@ -72,4 +142,3 @@ add_hook('ClientAreaPage', 1, function($vars) {
 
     return $return;
 });
-
