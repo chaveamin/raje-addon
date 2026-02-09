@@ -1,0 +1,35 @@
+@import "tailwindcss" important;
+
+@font-face {
+  font-family: "IRANYekan";
+  src:
+    url("../font/IRANYekanXVF.woff2") format("woff-variations"),
+    url("../font/IRANYekanXVF.woff2") format("woff");
+  font-weight: 100 1000;
+  font-display: fallback;
+}
+
+@theme {
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --font-yekan: "IRANYekan", tahoma;
+}
+
+#contentarea > div > h1:first-child {
+  @apply hidden;
+}
+.raje-admin-container,
+button {
+  @apply font-yekan;
+}
+a,
+a:hover {
+  text-decoration: none;
+}

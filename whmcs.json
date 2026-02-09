@@ -1,0 +1,27 @@
+{
+  "schema": "1.0",
+  "type": "whmcs-addons",
+  "name": "raje",
+  "license": "Proprietary",
+  "category": "addon",
+  "description": {
+    "name": "Raje Theme Control Panel",
+    "tagline": "Raje Theme Control Panel",
+    "long": "Set your Raje theme layout, menus, styles, pages, and more. easily and without any coding knowledge.",
+    "features": ["Media Manager", "License System", "Theme Customization"]
+  },
+  "logo": {
+    "filename": "assets/img/logo.png"
+  },
+  "authors": [
+    {
+      "name": "Amin Chavepour",
+      "homepage": "https://www.rtl-theme.com/author/chaveamin"
+    }
+  ],
+  "support": {
+    "email": "aminchave@gmail.com",
+    "docs_url": "https://www.rtl-theme.com/"
+  },
+  "version": "1.0"
+}
