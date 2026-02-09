@@ -118,16 +118,16 @@ HTML;
                     <div class="flex flex-col items-start gap-y-8 w-full *:w-full">
                         <div>
                             <label class="block text-sm font-bold text-zinc-500 mb-4" for="rtl_username">نام کاربری راست‌چین (Username)</label>
-                            <input id="rtl_username" type="text" name="rtl_username" class="bg-zinc-100 outline-0 focus:ring-2 focus:ring-zinc-300 p-5 rounded-xl text-sm text-zinc-800 transition-all w-full" value="{$username}" required>
+                            <input id="rtl_username" type="text" name="rtl_username" class="raje-input w-full p-5 bg-zinc-50/30 font-mono" value="{$username}" required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-zinc-500 mb-4" for="rtl_order_id">شماره سفارش (Order ID)</label>
-                            <input id="rtl_order_id" type="text" name="rtl_order_id" class="bg-zinc-100 outline-0 focus:ring-2 focus:ring-zinc-300 p-5 rounded-xl text-sm text-zinc-800 transition-all w-full" value="{$order_id}" required>
+                            <input id="rtl_order_id" type="text" name="rtl_order_id" class="raje-input w-full p-5 bg-zinc-50/30 font-mono" value="{$order_id}" required>
                         </div>
                         {$status_alert}
                     </div>
-                <button type="submit" class="mt-12 bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-6 px-8 rounded-2xl flex items-center gap-2">
-                    فعال‌سازی
+                <button type="submit" class="raje-btn mt-6">
+                    فعالسازی
                 </button>
             </form>
 HTML;
@@ -168,67 +168,66 @@ HTML;
                 <input type="hidden" name="sub_action" value="save_general">
                 {$saveMessage}
                 
-                <div class="bg-white rounded-xl shadow-sm border border-zinc-200 mb-6 overflow-hidden">
-                    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-zinc-50/50">
-                        <h3 class="font-bold text-zinc-700">لوگو و هویت سایت</h3>
+                <div class="bg-white rounded-2xl border border-zinc-200 mb-6 overflow-hidden">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-black/5">
+                        <h3 class="font-bold text-zinc-700 mb-0">لوگو و هویت سایت</h3>
                     </div>
-                    <div class="p-6">
-                        <div class="mb-6 border-b border-dashed border-zinc-200 pb-6">
+                    <div class="p-6 flex items-center gap-6 w-full *:w-full">
+                        <div>
                             <label class="block text-sm font-bold text-zinc-700 mb-2">لوگوی سایت</label>
                             <div class="media-input-group flex flex-col gap-3">
-                                <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4 w-full h-32 flex items-center justify-center relative overflow-hidden">
+                                <div class="bg-zinc-50/50 border border-zinc-200 rounded-2xl p-4 w-full h-32 flex items-center justify-center relative overflow-hidden">
                                     <img src="{$logoUrl}" class="preview-img h-full object-contain {$logoHide}">
                                 </div>
                                 <div class="flex gap-2">
-                                    <input type="text" name="site_logo" value="{$logo}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded px-3 bg-zinc-50" readonly>
-                                    <button class="media-select-btn bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold">انتخاب رسانه</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-6 border-b border-dashed border-zinc-200 pb-6">
-                            <label class="block text-sm font-bold text-zinc-700 mb-2">لوگوی دارک مود</label>
-                            <div class="media-input-group flex flex-col gap-3">
-                                <div class="bg-zinc-800 border border-zinc-700 rounded-lg p-4 w-full h-32 flex items-center justify-center relative overflow-hidden">
-                                    <img src="{$darkUrl}" class="preview-img h-full object-contain {$darkHide}">
-                                </div>
-                                <div class="flex gap-2">
-                                    <input type="text" name="dark_mode_logo" value="{$dark}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded px-3 bg-zinc-50" readonly>
-                                    <button class="media-select-btn bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold">انتخاب رسانه</button>
+                                    <input type="text" name="site_logo" value="{$logo}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                    <button class="media-select-btn raje-btn">انتخاب</button>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-bold text-zinc-700 mb-2">اندازه لوگو (پیکسل)</label>
-                            <input type="number" name="logo_width" class="w-32 text-center border border-zinc-300 rounded-lg px-4 py-2" value="{$width}">
+                            <label class="block text-sm font-bold text-zinc-700 mb-2">لوگوی دارک مود</label>
+                            <div class="media-input-group flex flex-col gap-3">
+                                <div class="bg-zinc-800 border border-zinc-700 rounded-2xl p-4 w-full h-32 flex items-center justify-center relative overflow-hidden">
+                                    <img src="{$darkUrl}" class="preview-img h-full object-contain {$darkHide}">
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" name="dark_mode_logo" value="{$dark}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                    <button class="media-select-btn raje-btn">انتخاب</button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="p-6">
+                        <label class="block text-sm font-bold text-zinc-700 mb-2">اندازه لوگو (پیکسل)</label>
+                        <input type="number" name="logo_width" class="raje-input p-3" value="{$width}">
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-zinc-200 mb-6 overflow-hidden">
-                     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-zinc-50/50">
-                        <h3 class="font-bold text-zinc-700">تنظیمات نمایش</h3>
+                <div class="bg-white rounded-2xl border border-zinc-200 mb-6 overflow-hidden">
+                     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-black/5">
+                        <h3 class="font-bold text-zinc-700 mb-0">تنظیمات عمومی</h3>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start gap-4">
-                            <input id="show_topbar" name="show_topbar" type="checkbox" value="1" class="w-5 h-5" {$topbar}>
+                    <div class="p-6 divide-y divide-zinc-950/5 *:pt-4 *:first:pt-0 *:pb-4 *:last:pb-0">
+                        <div class="flex items-center gap-4">
+                            <input id="show_topbar" name="show_topbar" type="checkbox" value="1" {$topbar}>
                             <label for="show_topbar" class="font-bold text-zinc-700">نمایش نوار اعلان (Top Bar)</label>
                         </div>
-                        <div class="flex items-start gap-4 mt-4 pt-4 border-t border-dashed border-zinc-200">
-                            <input id="show_announcements" name="show_announcements" type="checkbox" value="1" class="w-5 h-5" {$announce}>
+                        <div class="flex items-center gap-4">
+                            <input id="show_announcements" name="show_announcements" type="checkbox" value="1" {$announce}>
                             <label for="show_announcements" class="font-bold text-zinc-700">نمایش اسلایدر اخبار</label>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg flex items-center gap-2">
-                    <i class="fas fa-save"></i> ذخیره تغییرات
+                <button type="submit" class="raje-btn">
+                 ذخیره تغییرات
                 </button>
             </form>
 HTML;
 
-        return $this->renderPage('تنظیمات عمومی', $content, 'cogs', $vars);
+        return $this->renderPage('تنظیمات عمومی', $content, 'general', $vars);
     }
 
 
@@ -391,7 +390,7 @@ HTML;
             #media-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         </style>
 
-        <div class="raje-admin-container font-ravi rounded-3xl bg-white/90 p-16 h-lvh shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5" dir="rtl">
+        <div class="raje-admin-container font-ravi rounded-3xl bg-white/90 p-16 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5" dir="rtl">
             
             <div class="flex items-center justify-between mb-16">
                 <div class="flex items-center gap-3">
@@ -400,7 +399,7 @@ HTML;
                     </div>
                     <h1 class="text-2xl font-bold text-zinc-800 m-0">{$title}</h1>
                 </div>
-                <a href="{$modulelink}" class="flex items-center gap-2 text-zinc-500 transition-colors bg-white border border-zinc-200 px-4 py-2 rounded-xl font-bold text-sm">
+                <a href="{$modulelink}" class="text-zinc-500 bg-white border border-zinc-200 px-6 py-4 rounded-xl font-semibold text-sm">
                  بازگشت به داشبورد
                 </a>
             </div>
