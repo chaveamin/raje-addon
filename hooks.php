@@ -146,5 +146,8 @@ add_hook('ClientAreaPage', 1, function($vars) {
     // Announcements Setting
     $return['raje_show_announcements'] = isset($settings['show_announcements']) ? $settings['show_announcements'] : '1';
 
+    // Gravatar Setting
+    $return['raje_show_gravatar'] = isset($settings['show_gravatar']) ? $settings['show_gravatar'] : '1';
+
     return $return ?? [];
 });

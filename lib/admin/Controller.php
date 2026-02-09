@@ -146,14 +146,14 @@ HTML;
             $saveMessage = $this->saveGeneral();
         }
 
-        // Fetch Data
-        $settings = Capsule::table('rj_config')->whereIn('setting', ['site_logo', 'dark_mode_logo', 'logo_width', 'show_topbar', 'show_announcements'])->pluck('value', 'setting')->all();
+        $settings = Capsule::table('rj_config')->whereIn('setting', ['site_logo', 'dark_mode_logo', 'logo_width', 'show_topbar', 'show_announcements', 'show_gravatar'])->pluck('value', 'setting')->all();
         
         $logo = htmlspecialchars($settings['site_logo'] ?? '');
         $dark = htmlspecialchars($settings['dark_mode_logo'] ?? '');
         $width = htmlspecialchars($settings['logo_width'] ?? '32');
         $topbar = ($settings['show_topbar'] ?? '1') == '1' ? 'checked' : '';
         $announce = ($settings['show_announcements'] ?? '1') == '1' ? 'checked' : '';
+        $gravatar = ($settings['show_gravatar'] ?? '1') == '1' ? 'checked' : '';
         
         $logoUrl = $this->getImgUrl($logo);
         $darkUrl = $this->getImgUrl($dark);
@@ -218,6 +218,10 @@ HTML;
                             <input id="show_announcements" name="show_announcements" type="checkbox" value="1" {$announce}>
                             <label for="show_announcements" class="font-bold text-zinc-700">نمایش اسلایدر اخبار</label>
                         </div>
+                         <div class="flex items-center gap-4">
+                            <input id="show_gravatar" name="show_gravatar" type="checkbox" value="1" {$gravatar}>
+                            <label for="show_gravatar" class="font-bold text-zinc-700">نمایش تصویر پروفایل (Gravatar)</label>
+                        </div>
                     </div>
                 </div>
 
@@ -229,7 +233,6 @@ HTML;
 
         return $this->renderPage('تنظیمات عمومی', $content, 'general', $vars);
     }
-
 
     /**
      * Style Settings Page Action (Placeholder)
@@ -424,6 +427,9 @@ HTML;
 
         $show_announcements = isset($_POST['show_announcements']) ? '1' : '0';
         Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_announcements'], ['value' => $show_announcements]);
+
+        $show_gravatar = isset($_POST['show_gravatar']) ? '1' : '0';
+        Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_gravatar'], ['value' => $show_gravatar]);
 
         return '<div class="mb-4 p-4 rounded-md bg-green-50 border border-green-200 text-green-700 text-center font-bold">تنظیمات عمومی ذخیره شد.</div>';
     }
