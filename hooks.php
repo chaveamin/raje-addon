@@ -45,6 +45,7 @@ add_hook('ClientAreaPage', 1, function($vars) {
     $order_id   = $settings['rtl_order_id'] ?? '';
     $last_status = $settings['license_status'] ?? '0';
     $last_check  = (int)($settings['last_check'] ?? 0);
+    $assets_url = '../raje/modules/addons/raje/assets';
 
     $currentTime = time();
     $cacheTimeout = 86400;
@@ -89,14 +90,13 @@ add_hook('ClientAreaPage', 1, function($vars) {
         <html dir='rtl' lang='fa'>
         <head>
             <title>خطای لایسنس</title>
-            <link rel='stylesheet' href='modules/addons/raje/assets/style.css'>
+            <link rel='stylesheet' href='{$assets_url}/css/raje.cp.out.css'>
         </head>
         <body>
-        {$debug}
-            <div class='lic-card-wrapper'>
-                <div class='lic-card'>
-                    <h2 class='title'>خطا لایسنس</h2>
-                    <p class='error'>{$displayError}</p>
+            <div class='flex items-center justify-center h-lvh'>
+                <div class='font-yekan flex flex-col gap-y-4 items-center w-xl text-xl py-6 bg-white shadow-2xl shadow-zinc-800/10 rounded-2xl ring ring-zinc-200'>
+                    <h2 class='font-medium'>خطای لایسنس</h2>
+                    <p class='font-bold text-red-600'>{$displayError}</p>
                 </div>
             </div>
         </body>
