@@ -142,6 +142,13 @@ add_hook('ClientAreaPage', 1, function($vars) {
     $return['raje_show_gravatar'] = isset($settings['show_gravatar']) ? $settings['show_gravatar'] : '1';
     $return['raje_login_layout'] = isset($settings['login_layout']) ? $settings['login_layout'] : 'col';
     $return['raje_register_layout'] = isset($settings['register_layout']) ? $settings['register_layout'] : 'col';
+    if (!empty($settings['login_side_image'])) {
+        $return['raje_login_side_image'] = $getUrl($settings['login_side_image']);
+    }
+    
+    if (!empty($settings['register_side_image'])) {
+        $return['raje_register_side_image'] = $getUrl($settings['register_side_image']);
+    }
 
     return $return ?? [];
 });

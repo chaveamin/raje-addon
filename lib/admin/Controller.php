@@ -146,7 +146,18 @@ HTML;
             $saveMessage = $this->saveGeneral();
         }
 
-        $settings = Capsule::table('rj_config')->whereIn('setting', ['site_logo', 'dark_mode_logo', 'logo_width', 'show_topbar', 'show_announcements', 'show_gravatar'])->pluck('value', 'setting')->all();
+        $settings = Capsule::table('rj_config')->whereIn('setting', [
+            'site_logo',
+            'dark_mode_logo',
+            'logo_width',
+            'show_topbar',
+            'show_announcements',
+            'show_gravatar',
+            'login_layout',
+            'register_layout',
+            'login_side_image',
+            'register_side_image'
+        ])->pluck('value', 'setting')->all();
         
         $logo = htmlspecialchars($settings['site_logo'] ?? '');
         $dark = htmlspecialchars($settings['dark_mode_logo'] ?? '');
@@ -156,6 +167,14 @@ HTML;
         $gravatar = ($settings['show_gravatar'] ?? '1') == '1' ? 'checked' : '';
         $loginLayout = $settings['login_layout'] ?? 'col';
         $registerLayout = $settings['register_layout'] ?? 'col';
+        $loginSideImage = htmlspecialchars($settings['login_side_image'] ?? '');
+        $loginSideImageUrl = $this->getImgUrl($loginSideImage);
+        $loginSideImageHide = empty($loginSideImageUrl) ? 'hidden' : '';
+        $loginDefaultTextHide = !empty($loginSideImageUrl) ? 'hidden' : '';
+        $registerSideImage = htmlspecialchars($settings['register_side_image'] ?? '');
+        $registerSideImageUrl = $this->getImgUrl($registerSideImage);
+        $registerSideImageHide = empty($registerSideImageUrl) ? 'hidden' : '';
+        $registerDefaultTextHide = !empty($registerSideImageUrl) ? 'hidden' : '';
         
         $logoUrl = $this->getImgUrl($logo);
         $darkUrl = $this->getImgUrl($dark);
@@ -229,7 +248,7 @@ HTML;
                             <input id="show_gravatar" name="show_gravatar" type="checkbox" value="1" {$gravatar}>
                             <label for="show_gravatar" class="font-bold text-zinc-700">نمایش تصویر پروفایل (Gravatar)</label>
                         </div>
-                        <div class="flex items-center gap-8 mt-6">
+                        <div class="flex items-end gap-8 mt-6">
                             <div>
                                 <label class="block text-sm font-bold text-zinc-700 mb-4">طرح صفحه ورود</label>
                                 <div class="flex gap-4">
@@ -237,7 +256,7 @@ HTML;
                                         <input type="radio" name="login_layout" value="col" class="hidden peer" {$isLoginCol}>
                                         <div class="p-4 bg-zinc-100 peer-checked:ring-2 peer-checked:ring-zinc-800 rounded-3xl overflow-hidden relative transition-all">
                                             <img src="{$assets_url}/img/login-style-1.webp" class="w-lg object-cover rounded-3xl">
-                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">دو ستونه (پیشفرض)</div>
+                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">دو ستونه</div>
                                         </div>
                                     </label>
                                     <label class="cursor-pointer group flex-1">
@@ -248,6 +267,21 @@ HTML;
                                         </div>
                                     </label>
                                 </div>
+                                <div id="login-side-image-wrapper" class="overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                    <div class="pt-4">
+                                        <label class="block text-sm font-bold text-zinc-700 mb-2">تصویر کناری</label>
+                                        <div class="media-input-group flex flex-col gap-3">
+                                            <div class="bg-zinc-50/50 border border-zinc-200 rounded-2xl p-4 w-full h-32 flex items-center justify-center relative overflow-hidden">
+                                                <img src="{$loginSideImageUrl}" class="preview-img h-full object-contain {$loginSideImageHide}">
+                                                <span class="text-zinc-400 text-xs {$loginDefaultTextHide}">پیش‌فرض قالب</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <input type="text" name="login_side_image" value="{$loginSideImage}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                                <button class="media-select-btn raje-btn">انتخاب</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-zinc-700 mb-4">طرح صفحه ثبت‌ نام</label>
@@ -256,7 +290,7 @@ HTML;
                                         <input type="radio" name="register_layout" value="col" class="hidden peer" {$isRegCol}>
                                         <div class="p-4 bg-zinc-100 peer-checked:ring-2 peer-checked:ring-zinc-800 rounded-3xl overflow-hidden relative transition-all">
                                             <img src="{$assets_url}/img/register-style-1.webp" class="w-lg object-cover rounded-3xl">
-                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">دو ستونه (پیشفرض)</div>
+                                            <div class="bg-zinc-800/10 mt-4 py-4 rounded-2xl text-center text-xs font-bold">دو ستونه</div>
                                         </div>
                                     </label>
                                     <label class="cursor-pointer group flex-1">
@@ -267,6 +301,21 @@ HTML;
                                         </div>
                                     </label>
                                 </div>
+                                <div id="register-side-image-wrapper" class="overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                    <div class="pt-4">
+                                        <label class="block text-sm font-bold text-zinc-700 mb-2">تصویر کناری</label>
+                                        <div class="media-input-group flex flex-col gap-3">
+                                            <div class="bg-zinc-50/50 border border-zinc-200 rounded-2xl p-4 w-full h-32 flex items-center justify-center relative overflow-hidden">
+                                                <img src="{$registerSideImageUrl}" class="preview-img h-full object-contain {$registerSideImageHide}">
+                                                <span class="text-zinc-400 text-xs {$registerDefaultTextHide}">پیش‌فرض قالب</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <input type="text" name="register_side_image" value="{$registerSideImage}" class="flex-1 text-xs text-zinc-500 border border-zinc-200 rounded-xl px-3 bg-white font-mono select-none outline-0 p-3" disabled>
+                                                <button class="media-select-btn raje-btn">انتخاب</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -275,6 +324,31 @@ HTML;
                     <button type="submit" class="raje-btn w-72 h-22">ذخیره تغییرات</button>
                 </div>
             </form>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    function setupToggle(radioName, wrapperId) {
+                        const radios = document.querySelectorAll(`input[name="\${radioName}"]`);
+                        const wrapper = document.getElementById(wrapperId);
+                        
+                        function update() {
+                            const selected = document.querySelector(`input[name="\${radioName}"]:checked`).value;
+                            if (selected === 'col') {
+                                wrapper.classList.remove('max-h-0', 'opacity-0');
+                                wrapper.classList.add('max-h-96', 'opacity-100');
+                            } else {
+                                wrapper.classList.remove('max-h-96', 'opacity-100');
+                                wrapper.classList.add('max-h-0', 'opacity-0');
+                            }
+                        }
+                        
+                        radios.forEach(r => r.addEventListener('change', update));
+                        update();
+                    }
+
+                    setupToggle('login_layout', 'login-side-image-wrapper');
+                    setupToggle('register_layout', 'register-side-image-wrapper');
+                });
+            </script>            
 HTML;
 
         return $this->renderPage('تنظیمات عمومی', $content, 'general', $vars);
@@ -482,6 +556,13 @@ HTML;
         }
         if (isset($_POST['register_layout'])) {
             Capsule::table('rj_config')->updateOrInsert(['setting' => 'register_layout'], ['value' => $_POST['register_layout']]);
+        }
+
+        if (isset($_POST['login_side_image'])) {
+            Capsule::table('rj_config')->updateOrInsert(['setting' => 'login_side_image'], ['value' => trim($_POST['login_side_image'])]);
+        }
+        if (isset($_POST['register_side_image'])) {
+            Capsule::table('rj_config')->updateOrInsert(['setting' => 'register_side_image'], ['value' => trim($_POST['register_side_image'])]);
         }
 
         return '<div class="mb-4 p-4 rounded-md bg-green-50 border border-green-200 text-green-700 text-center font-bold">تنظیمات عمومی ذخیره شد.</div>';
