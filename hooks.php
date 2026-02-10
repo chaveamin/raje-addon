@@ -140,6 +140,10 @@ add_hook('ClientAreaPage', 1, function($vars) {
     $return['raje_show_topbar'] = isset($settings['show_topbar']) ? $settings['show_topbar'] : '1';
     $return['raje_show_announcements'] = isset($settings['show_announcements']) ? $settings['show_announcements'] : '1';
     $return['raje_show_gravatar'] = isset($settings['show_gravatar']) ? $settings['show_gravatar'] : '1';
+    $return['raje_show_header_lang'] = isset($settings['show_header_lang']) ? $settings['show_header_lang'] : '1';
+    $return['raje_show_footer_lang'] = isset($settings['show_footer_lang']) ? $settings['show_footer_lang'] : '1';
+    $return['raje_show_login_lang'] = isset($settings['show_login_lang']) ? $settings['show_login_lang'] : '1';
+    $return['raje_show_register_lang'] = isset($settings['show_register_lang']) ? $settings['show_register_lang'] : '1';
     $return['raje_login_layout'] = isset($settings['login_layout']) ? $settings['login_layout'] : 'col';
     $return['raje_register_layout'] = isset($settings['register_layout']) ? $settings['register_layout'] : 'col';
     if (!empty($settings['login_side_image'])) {

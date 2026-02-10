@@ -1,9 +1,13 @@
-#contentarea > div > h1:first-child {
-  @apply hidden;
+#contentarea > div > h1:first-child,
+.sidebar {
+  display: none;
 }
 .raje-admin-container,
 button {
   font-family: var(--font-yekan);
+}
+#contentarea {
+  margin: 0;
 }
 a,
 a:hover {
@@ -42,6 +46,15 @@ label {
 .raje-input:focus {
   outline: none;
   box-shadow: 0 0 0 1.7px var(--color-zinc-800);
+}
+
+.raje-label {
+  font-weight: 600;
+  color: var(--color-zinc-700);
+  box-shadow: 0 0 0 1px var(--color-zinc-200);
+  border-radius: 12px;
+  padding: 14px;
+  width: 100%;
 }
 
 input[type="checkbox"] {

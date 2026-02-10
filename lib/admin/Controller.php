@@ -21,6 +21,7 @@ class Controller {
         // Dashboard Grid View
         return <<<HTML
         <link rel="stylesheet" href="{$assets_url}/css/raje.cp.out.css">
+        <link rel="stylesheet" href="{$assets_url}/css/rjcp.css">
         <div class="raje-admin-container overflow-hidden font-yekan shadow-2xl ring-1 shadow-zinc-800/10 ring-zinc-900/5 bg-white/90 p-16 h-lvh rounded-3xl relative" dir="rtl">
             <div class="px-12 py-8 w-full flex items-start justify-between shadow-xl shadow-zinc-800/5 absolute top-0 right-0">
                 <div>
@@ -68,7 +69,7 @@ class Controller {
 HTML;
     }
 
-/**
+    /**
      * License Page Action
      */
     public function license($vars)
@@ -153,6 +154,10 @@ HTML;
             'show_topbar',
             'show_announcements',
             'show_gravatar',
+            'show_header_lang',
+            'show_footer_lang',
+            'show_login_lang',
+            'show_register_lang',
             'login_layout',
             'register_layout',
             'login_side_image',
@@ -165,6 +170,10 @@ HTML;
         $topbar = ($settings['show_topbar'] ?? '1') == '1' ? 'checked' : '';
         $announce = ($settings['show_announcements'] ?? '1') == '1' ? 'checked' : '';
         $gravatar = ($settings['show_gravatar'] ?? '1') == '1' ? 'checked' : '';
+        $header_lang = ($settings['show_header_lang'] ?? '1') == '1' ? 'checked' : '';
+        $footer_lang = ($settings['show_footer_lang'] ?? '1') == '1' ? 'checked' : '';
+        $login_lang = ($settings['show_login_lang'] ?? '1') == '1' ? 'checked' : '';
+        $register_lang = ($settings['show_register_lang'] ?? '1') == '1' ? 'checked' : '';
         $loginLayout = $settings['login_layout'] ?? 'col';
         $registerLayout = $settings['register_layout'] ?? 'col';
         $loginSideImage = htmlspecialchars($settings['login_side_image'] ?? '');
@@ -195,8 +204,8 @@ HTML;
                 {$saveMessage}
                 
                 <div class="bg-white rounded-2xl border border-zinc-200 mb-6 overflow-hidden">
-                    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-black/5">
-                        <h3 class="font-bold text-zinc-700 mb-0">لوگو و هویت سایت</h3>
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+                        <h3 class="font-bold text-lg text-zinc-700 mb-0">لوگو و هویت سایت</h3>
                     </div>
                     <div class="p-6 flex items-center gap-6 w-full *:w-full">
                         <div>
@@ -232,23 +241,63 @@ HTML;
                 </div>
 
                 <div class="bg-white rounded-2xl border border-zinc-200 mb-12 overflow-hidden">
-                     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-black/5">
-                        <h3 class="font-bold text-zinc-700 mb-0">عمومی</h3>
+                     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+                        <h3 class="font-bold text-lg text-zinc-700 mb-0">عمومی</h3>
                     </div>
-                    <div class="p-6 divide-y divide-zinc-950/5 *:pt-4 *:first:pt-0 *:pb-4 *:last:pb-0">
-                        <div class="flex items-center gap-4">
-                            <input id="show_topbar" name="show_topbar" type="checkbox" value="1" {$topbar}>
-                            <label for="show_topbar" class="font-bold text-zinc-700">نمایش نوار اعلان (Top Bar)</label>
+                    <div class="p-6">
+                        <div class="flex items-start w-full *:w-full justify-between gap-x-20 *:flex *:flex-col *:items-start *:gap-y-4">
+                            <div class="*:w-full">
+                                <div class="flex items-center gap-4">
+                                    <input id="show_topbar" name="show_topbar" type="checkbox" value="1" {$topbar}>
+                                    <label for="show_topbar" class="raje-label">نمایش نوار اعلان</label>
+                                    <div class="relative flex group">
+                                        <button class="rounded-lg text-sm hover:bg-gray-50"><img src="{$assets_url}/img/info.svg"></button>
+                                        <div class="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-96 -translate-x-1/2 rounded-xl bg-zinc-200 p-3 text-xs text-center font-semibold opacity-0 scale-95 transition group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100" role="tooltip">
+                                            نمایش نوار مشکی بالای هدر
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <input id="show_announcements" name="show_announcements" type="checkbox" value="1" {$announce}>
+                                    <label for="show_announcements" class="raje-label">نمایش اسلایدر اخبار</label>
+                                    <div class="relative flex group">
+                                        <button class="rounded-lg text-sm hover:bg-gray-50"><img src="{$assets_url}/img/info.svg"></button>
+                                        <div class="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-96 -translate-x-1/2 rounded-xl bg-zinc-200 p-3 text-xs text-center font-semibold opacity-0 scale-95 transition group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100" role="tooltip">
+                                            نمایش اسلایدر داخل نوار اعلان
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="flex items-center gap-4">
+                                    <input id="show_gravatar" name="show_gravatar" type="checkbox" value="1" {$gravatar}>
+                                    <label for="show_gravatar" class="raje-label">نمایش گراواتار</label>
+                                    <div class="relative flex group">
+                                        <button class="rounded-lg text-sm hover:bg-gray-50"><img src="{$assets_url}/img/info.svg"></button>
+                                        <div class="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-96 -translate-x-1/2 rounded-xl bg-zinc-200 p-3 text-xs text-center font-semibold opacity-0 scale-95 transition group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100" role="tooltip">
+                                            نمایش گراواتار به عنوان تصویر پروفایل مشتریان
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="*:w-full">
+                                <div class="flex items-center gap-4">
+                                    <input id="show_header_lang" name="show_header_lang" type="checkbox" value="1" {$header_lang}>
+                                    <label for="show_header_lang" class="raje-label">نمایش تغییر زبان (هدر)</label>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <input id="show_footer_lang" name="show_footer_lang" type="checkbox" value="1" {$footer_lang}>
+                                    <label for="show_footer_lang" class="raje-label">نمایش تغییر زبان (فوتر)</label>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <input id="show_login_lang" name="show_login_lang" type="checkbox" value="1" {$login_lang}>
+                                    <label for="show_login_lang" class="raje-label">نمایش تغییر زبان (صفحه ورود)</label>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <input id="show_register_lang" name="show_register_lang" type="checkbox" value="1" {$register_lang}>
+                                    <label for="show_register_lang" class="raje-label">نمایش تغییر زبان (صفحه ثبت‌نام)</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <input id="show_announcements" name="show_announcements" type="checkbox" value="1" {$announce}>
-                            <label for="show_announcements" class="font-bold text-zinc-700">نمایش اسلایدر اخبار</label>
-                        </div>
-                         <div class="flex items-center gap-4">
-                            <input id="show_gravatar" name="show_gravatar" type="checkbox" value="1" {$gravatar}>
-                            <label for="show_gravatar" class="font-bold text-zinc-700">نمایش تصویر پروفایل (Gravatar)</label>
-                        </div>
-                        <div class="flex items-end gap-8 mt-6">
+                        <div class="flex items-end gap-8 mt-16">
                             <div>
                                 <label class="block text-sm font-bold text-zinc-700 mb-4">طرح صفحه ورود</label>
                                 <div class="flex gap-4">
@@ -522,7 +571,7 @@ HTML;
                      <div class="size-12">
                         <img src="{$assets_url}/img/{$icon}.svg">
                     </div>
-                    <h1 class="text-2xl font-bold text-zinc-800 m-0">{$title}</h1>
+                    <h1 class="text-3xl font-extrabold text-zinc-800 m-0">{$title}</h1>
                 </div>
                 <a href="{$modulelink}" class="text-zinc-500 bg-white border border-zinc-200 px-6 py-4 rounded-xl font-semibold text-sm">
                  بازگشت به داشبورد
@@ -552,6 +601,15 @@ HTML;
 
         $show_gravatar = isset($_POST['show_gravatar']) ? '1' : '0';
         Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_gravatar'], ['value' => $show_gravatar]);
+
+        $show_header_lang = isset($_POST['show_header_lang']) ? '1' : '0';
+        Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_header_lang'], ['value' => $show_header_lang]);
+        $show_footer_lang = isset($_POST['show_footer_lang']) ? '1' : '0';
+        Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_footer_lang'], ['value' => $show_footer_lang]);
+        $show_login_lang = isset($_POST['show_login_lang']) ? '1' : '0';
+        Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_login_lang'], ['value' => $show_login_lang]);
+        $show_register_lang = isset($_POST['show_register_lang']) ? '1' : '0';
+        Capsule::table('rj_config')->updateOrInsert(['setting' => 'show_register_lang'], ['value' => $show_register_lang]);
 
         if (isset($_POST['login_layout'])) {
             Capsule::table('rj_config')->updateOrInsert(['setting' => 'login_layout'], ['value' => $_POST['login_layout']]);
