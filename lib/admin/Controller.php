@@ -320,8 +320,9 @@ HTML;
                         </div>
                     </div>
                 </div>
-                <div class="sticky bottom-6 right-0 rounded-3xl p-6 bg-white ring-2 ring-zinc-800/15">
-                    <button type="submit" class="raje-btn w-72 h-22">ذخیره تغییرات</button>
+                <div class="sticky bottom-6 right-0 rounded-3xl p-6 bg-white ring-2 ring-zinc-800/15 flex items-center gap-x-6 *:rounded-2xl *:font-bold *:transition-colors *:w-64 *:h-20">
+                    <button id="save" type="submit" class=" text-white bg-zinc-800 hover:bg-zinc-700">ذخیره تغییرات</button>
+                    <button type="button" class="ring ring-black/20 text-zinc-800 shadow-sm hover:bg-zinc-50" onclick="window.location.reload()">لغو</button>
                 </div>
             </form>
             <script>

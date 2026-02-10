@@ -395,6 +395,9 @@
   .h-16 {
     height: calc(var(--spacing) * 16) !important;
   }
+  .h-20 {
+    height: calc(var(--spacing) * 20) !important;
+  }
   .h-22 {
     height: calc(var(--spacing) * 22) !important;
   }
@@ -427,6 +430,9 @@
   }
   .w-16 {
     width: calc(var(--spacing) * 16) !important;
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64) !important;
   }
   .w-72 {
     width: calc(var(--spacing) * 72) !important;
@@ -529,6 +535,9 @@
   }
   .gap-x-4 {
     column-gap: calc(var(--spacing) * 4) !important;
+  }
+  .gap-x-6 {
+    column-gap: calc(var(--spacing) * 6) !important;
   }
   .gap-x-8 {
     column-gap: calc(var(--spacing) * 8) !important;
@@ -1063,6 +1072,12 @@
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-zinc-800) 10%, transparent) var(--tw-shadow-alpha), transparent) !important;
     }
   }
+  .ring-black\/20 {
+    --tw-ring-color: color-mix(in srgb, #000 20%, transparent) !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-ring-color: color-mix(in oklab, var(--color-black) 20%, transparent) !important;
+    }
+  }
   .ring-zinc-200 {
     --tw-ring-color: var(--color-zinc-200) !important;
   }
@@ -1165,9 +1180,24 @@
     -webkit-user-select: none !important;
     user-select: none !important;
   }
+  .\*\:h-20 {
+    :is(& > *) {
+      height: calc(var(--spacing) * 20) !important;
+    }
+  }
+  .\*\:w-64 {
+    :is(& > *) {
+      width: calc(var(--spacing) * 64) !important;
+    }
+  }
   .\*\:w-full {
     :is(& > *) {
       width: 100% !important;
+    }
+  }
+  .\*\:rounded-2xl {
+    :is(& > *) {
+      border-radius: var(--radius-2xl) !important;
     }
   }
   .\*\:rounded-xl {
@@ -1188,6 +1218,19 @@
   .\*\:pb-4 {
     :is(& > *) {
       padding-bottom: calc(var(--spacing) * 4) !important;
+    }
+  }
+  .\*\:font-bold {
+    :is(& > *) {
+      --tw-font-weight: var(--font-weight-bold) !important;
+      font-weight: var(--font-weight-bold) !important;
+    }
+  }
+  .\*\:transition-colors {
+    :is(& > *) {
+      transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to !important;
+      transition-timing-function: var(--tw-ease, var(--default-transition-timing-function)) !important;
+      transition-duration: var(--tw-duration, var(--default-transition-duration)) !important;
     }
   }
   .group-hover\:scale-100 {
@@ -1281,6 +1324,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-zinc-50) !important;
+      }
+    }
+  }
+  .hover\:bg-zinc-700 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-zinc-700) !important;
       }
     }
   }
