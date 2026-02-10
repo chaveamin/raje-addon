@@ -1,0 +1,77 @@
+#contentarea > div > h1:first-child {
+  @apply hidden;
+}
+.raje-admin-container,
+button {
+  font-family: var(--font-yekan);
+}
+a,
+a:hover {
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-size: initial;
+}
+label {
+  margin: initial;
+}
+
+.raje-btn {
+  background-color: var(--color-zinc-900);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.raje-btn:active {
+  box-shadow: 0 0 0 3px rgba(0 0 0 / 13%);
+}
+
+.raje-input {
+  border-radius: 7px;
+  border: 1px solid rgba(9 9 11 / 10%);
+  box-shadow: 0 1px rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.1s ease;
+}
+.raje-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1.7px var(--color-zinc-800);
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  background-color: #fff;
+  font: inherit;
+  color: currentColor;
+  width: 1.5em !important;
+  height: 1.5em !important;
+  border: 0.15em solid var(--color-zinc-400);
+  border-radius: 0.5em;
+  display: grid;
+  place-content: center;
+}
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-zinc-800);
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}

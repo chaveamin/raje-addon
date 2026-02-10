@@ -231,7 +231,7 @@ HTML;
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl border border-zinc-200 mb-6 overflow-hidden">
+                <div class="bg-white rounded-2xl border border-zinc-200 mb-12 overflow-hidden">
                      <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 bg-black/5">
                         <h3 class="font-bold text-zinc-700 mb-0">عمومی</h3>
                     </div>
@@ -320,7 +320,7 @@ HTML;
                         </div>
                     </div>
                 </div>
-                <div class="sticky bottom-6 right-0 w-11/12 mx-auto rounded-3xl p-6 bg-white/90 backdrop-blur-sm">
+                <div class="sticky bottom-6 right-0 rounded-3xl p-6 bg-white ring-2 ring-zinc-800/15">
                     <button type="submit" class="raje-btn w-72 h-22">ذخیره تغییرات</button>
                 </div>
             </form>
@@ -507,7 +507,8 @@ HTML;
         $timestamp = time(); // For cache busting
 
         return <<<HTML
-        <link rel="stylesheet" href="../templates/raje/css/theme.css">
+        <link rel="stylesheet" href="{$assets_url}/css/raje.cp.out.css">
+        <link rel="stylesheet" href="{$assets_url}/css/rjcp.css">
         <style>
             #media-grid::-webkit-scrollbar { width: 8px; }
             #media-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
